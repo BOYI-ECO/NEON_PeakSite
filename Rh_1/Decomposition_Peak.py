@@ -3,15 +3,6 @@
 
 # In[1]:
 
-# change 1 hange 3 change2323#
-####xibababxiaxbabx#
-# cgange 333#
-# what if we do 4#
-#Change 5 
-# Chage 6
-# Chagnge 7
-# Change 8
-
 #Package Import#
 import numpy as np
 import math
