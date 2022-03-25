@@ -28,7 +28,7 @@ day_selected = day_selected
 # Read (Optimization) parameters getting from Matlab #
 decom_para_1 = np.loadtxt('para.txt')					   # Paras need to be optimized #
 decom_para = pd.read_csv("decom_para.csv",index_col=0)	   # Paras #
-
+ 
 #Looping for Each Site#
 for sample_site in range(1,site):
 	#Input data#
@@ -88,13 +88,16 @@ for sample_site in range(1,site):
 	Rh=[]
 	flag_SMB1 = 0
 	flag_SMB2 = 0
-	
+
+
 	CWDFrag_OrgInAllocLab(sample_site,obser_data,litter,AOM1,AOM2,AOM3,CN_AOM1,CN_AOM2,CN_AOM3)	               ###QQQ:20210602
 	#Looping for Each Inbubation Day#
 	for t in range(1,day):
 		potimm = 0
 		Nmin = 0
 		litligsoil_CO2 = lls_CO2()
+
+		
 
 
 		bimm_AOM1,bimm_AOM2,bimm_AOM3,bimm_SMR,bimm_NOM,bimm_MOM,potimm = SoilDecom_pot(sample_site,t,obser_data,potimm,flag_SMB1,flag_SMB2,lig_p1,lig_p2,	   ###QQQ: 20210908
@@ -120,5 +123,7 @@ for sample_site in range(1,site):
 	Rh_Day_selected_frame = pd.DataFrame(Rh_Day_selected[:,-3:])
 	Rh_Day_selected_frame_lss = pd.melt(Rh_Day_selected_frame).iloc[:,-1]
 	np.savetxt('Rh_sum.txt',Rh_Day_selected_frame_lss)
+
+
 
 

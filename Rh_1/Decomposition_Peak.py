@@ -3,6 +3,7 @@
 
 # In[1]:
 
+
 #Package Import#
 import numpy as np
 import math
@@ -877,11 +878,14 @@ def SoilDecom_real (u,theta,ymax,sample_site,t,obser_data,Nmin,potimm,flag_SMB1,
     #lig_p1 = 4                # determine the maximun lignin   (rate 0.08 = 4) to (20)
     #lig_p2 = 0.9              # determine the slop of lignin    (0.9: vertical line - 0.99: linear line)
     if bimm_AOM3 == 1:                                                                                                                                                        ### 20220310(4): day,u theta,ymax for peak
-        #kAOM3 = 1/kmax_AOM3/365 * t_scale*w_scale*ni_scale * (lig_p1/(1+pow(lig_p2,-t))+0.75) * (ymax/math.sqrt(2*math.pi) * pow(math.e,-pow((t-u),2)/(2*pow(theta,2))))        ###QQQ:20210908: lignin decay logistic function;
-        kAOM3 = 1/kmax_AOM3/365 * t_scale*w_scale*ni_scale * (ymax/math.sqrt(2*math.pi) * pow(math.e,-pow((t-u),2)/(2*pow(theta,2))))        ###QQQ:20210908: lignin decay logistic function;
-    else:
-        #kAOM3 = 1/kmax_AOM3/365 * t_scale*w_scale*nm_scale * (lig_p1/(1+pow(lig_p2,-t))+0.75) * (ymax/math.sqrt(2*math.pi) * pow(math.e,-pow((t-u),2)/(2*pow(theta,2))))        ###QQQ:20210908: lignin decay logistic function
-        kAOM3 = 1/kmax_AOM3/365 * t_scale*w_scale*nm_scale * (ymax/math.sqrt(2*math.pi) * pow(math.e,-pow((t-u),2)/(2*pow(theta,2))))        ###QQQ:20210908: lignin decay logistic function
+        kAOM3 = 1/kmax_AOM3/365 * t_scale*w_scale*ni_scale * (lig_p1/(1+pow(lig_p2,-t))+1) * (ymax/math.sqrt(2*math.pi)*pow(math.e,-pow((t-u),2)/(2*pow(theta,2)))+1)        ###QQQ:20210908: lignin decay logistic function;
+        #kAOM3 = 1/kmax_AOM3/365 * t_scale*w_scale*ni_scale * (ymax/math.sqrt(2*math.pi) * pow(math.e,-pow((t-u),2)/(2*pow(theta,2))))        ###QQQ:20210908: lignin decay logistic function;
+        #kAOM3 = 1/kmax_AOM3/365 * t_scale*w_scale*ni_scale
+    else:                                                                                                                                                                       ### 20220310(4): day,u theta,ymax for peak, k * log * gau
+        kAOM3 = 1/kmax_AOM3/365 * t_scale*w_scale*nm_scale * (lig_p1/(1+pow(lig_p2,-t))+1) * (ymax/math.sqrt(2*math.pi)*pow(math.e,-pow((t-u),2)/(2*pow(theta,2)))+1)        ###QQQ:20210908: lignin decay logistic function
+        #kAOM3 = 1/kmax_AOM3/365 * t_scale*w_scale*nm_scale * (ymax/math.sqrt(2*math.pi) * pow(math.e,-pow((t-u),2)/(2*pow(theta,2))))        ###QQQ:20210908: lignin decay logistic function
+        #kAOM3 = 1/kmax_AOM3/365 * t_scale*w_scale*ni_scale
+
     ##Decomposition: CN Loss & Transfer##
     C_leaveAOM3    = AOM3.C*kAOM3                #Carbon leave from AOM3#
     ###QQQ: 20201607: For Lab Incubation
@@ -1193,6 +1197,7 @@ def SoilDecom_real (u,theta,ymax,sample_site,t,obser_data,Nmin,potimm,flag_SMB1,
     Rh.append(litligsoil_CO2.lignin_CO2*0.31*0.1*1000)                     ###QQQ: 20210908: lignin cal: total lignin*0.31 (31% synthesized lignin) * 1/10 (labeled lignin C) * 1000 (convert to ug/g/d) 
     Rh.append(litligsoil_CO2.soil_CO2)
     
+
     #Rh.append(litligsoil_CO2.litter_CO2+(litligsoil_CO2.lignin_CO2*10*2.2))  ###QQQ: 20210608: (label lignin) AOM1+AOM2+AOM3-litter lignin
     #Rh.append(litligsoil_CO2.lignin_CO2*1000)                                ###QQQ: 20210608: (label lignin) Only add labeled lignin-C in model (rate:ug/g/d)
     #Rh.append(litligsoil_CO2.soil_CO2)
