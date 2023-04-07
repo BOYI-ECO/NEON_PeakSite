@@ -9,7 +9,7 @@
 ### *`Decomposition.py` : Model code written by Python*  
 ### *`Main Function_Fixed.ipynb`: Main function to run the model*  
 ### *`Main Function_Validation.ipynb`: Main function for Validation Site*
-## *Model Seneitivity Analysis*
+## *Model Sensitivity Analysis*
 ### *Sobal Sensitivity Code*
 ## *Model Parameterization Code*  
 ### *Dream_zs code for model parameterization*
